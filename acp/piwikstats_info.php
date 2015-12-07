@@ -7,17 +7,17 @@
 *
 */
 
-namespace tacitus89\piwikstatistic\acp;
+namespace tacitus89\piwikstats\acp;
 
-class piwikstatistic_info
+class piwikstats_info
 {
 	function module()
 	{
 		return array(
-			'filename'	=> '\tacitus89\gamesmod\acp\piwikstatistic_module',
+			'filename'	=> '\tacitus89\gamesmod\acp\piwikstats_module',
 			'title'		=> 'ACP_PIWIK_INDEX',
 			'modes'		=> array(
-				'config'	=> array('title' => 'ACP_PIWIK_SETTINGS', 	'auth' => 'ext_tacitus89/piwikstatistic && acl_a_board', 'cat' => array('ACP_PIWIK_INDEX')),
+				'config'	=> array('title' => 'ACP_PIWIK_SETTINGS', 	'auth' => 'ext_tacitus89/piwikstats && acl_a_board', 'cat' => array('ACP_PIWIK_INDEX')),
 			),
 		);
 	}

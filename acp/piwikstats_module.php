@@ -7,9 +7,9 @@
 *
 */
 
-namespace tacitus89\piwikstatistic\acp;
+namespace tacitus89\piwikstats\acp;
 
-class piwikstatistic_module
+class piwikstats_module
 {
 	public $u_action;
 
@@ -18,6 +18,6 @@ class piwikstatistic_module
 		global $phpbb_container, $request, $user;
 
 		// Add the piwikstatistic ACP lang file
-		$user->add_lang_ext('tacitus89/piwikstatistic', 'piwikstatistic_acp');
+		$user->add_lang_ext('tacitus89/piwikstats', 'piwikstats_acp');
 	}
 }
