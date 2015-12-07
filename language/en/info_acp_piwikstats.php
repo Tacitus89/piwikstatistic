@@ -33,6 +33,7 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'ACP_PIWIK_SETTINGS'			=> 'Piwik Settings',
-	'ACP_PIWIK_INDEX'					=> 'Piwik Statistic'
+	'ACP_PIWIK_INDEX'				=> 'Piwik Statistic',
+	'ACP_PIWIK_TITLE'				=> 'Piwik Statistic',
+	'ACP_PIWIK_SETTINGS'		=> 'Configuration',
 ));
