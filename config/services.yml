@@ -7,3 +7,12 @@ services:
             - @template
         tags:
             - { name: event.listener }
+
+    tacitus89.piwikstats.main.controller:
+        class: tacitus89\piwikstats\controller\main_controller
+        arguments:
+            - @config
+            - @config_text
+            - @controller.helper
+            - @template
+            - @user
