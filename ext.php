@@ -8,7 +8,7 @@
 *
 */
 
-namespace tacitus89\piwikstatistic;
+namespace tacitus89\piwikstats;
 
 class ext extends \phpbb\extension\base
 {
