@@ -17,7 +17,13 @@ class piwikstats_module
 	{
 		global $phpbb_container, $request, $user;
 
-		// Add the piwikstatistic ACP lang file
+		// Add the piwikstats ACP lang file
 		$user->add_lang_ext('tacitus89/piwikstats', 'piwikstats_acp');
+
+		// Load a template from adm/style for our ACP page
+		$this->tpl_name = 'acp_piwikstats';
+
+		// Set the page title for our ACP page
+		$this->page_title = $user->lang('ACP_PIWIK_INDEX');
 	}
 }

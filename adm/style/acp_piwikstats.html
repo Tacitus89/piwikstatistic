@@ -7,4 +7,37 @@
 	<h1>{L_ACP_PIWIK_TITLE}</h1>
 	<p>{L_ACP_PIWIK_DESC}</p>
 
+	<form id="module" method="post" action="{U_ACTION}">
+		<fieldset>
+			<legend>{L_ACP_PIWIK_EXT_CONF_SETTINGS}</legend>
+			<dl>
+				<dt><label for="piwik_ext_active">{L_ACP_PIWIK_EXT_ACTIVATE}</label></dt>
+				<dd>
+					<label><input type="radio" class="radio" id="piwik_ext_active" name="piwik_ext_active" value="1"<!-- IF S_PIWIK_EXT_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="piwik_ext_active" value="0"<!-- IF not S_PIWIK_EXT_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+		</fieldset>
+
+		<fieldset>
+			<legend>{L_ACP_PIWIK_SETTINGS}</legend>
+			<dl>
+				<dt><label for="piwik_code">{L_ACP_PIWIK_CODE}</label><br /><span>{L_ACP_PIWIK_CODE_EXPLAIN}</span></dt>
+				<dd>
+					<textarea name="piwik_code" rows="10" cols="40">{PIWIK_CODE_TEXT}</textarea>
+				</dd>
+			</dl>
+		</fieldset>
+
+		<fieldset class="submit-buttons">
+			<p class="submit-buttons">
+				<input class="button1" type="submit" id="submit" name="submit" value="{L_SUBMIT}" />&nbsp;
+				<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+				{S_FORM_TOKEN}
+			</p>
+		</fieldset>
+
+	</form>
+
+
 <!-- INCLUDE overall_footer.html -->
