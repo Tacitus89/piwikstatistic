@@ -1,0 +1,9 @@
+services:
+    tacitus89.piwikstats.listener:
+        class: tacitus89\piwikstats\event\listener
+        arguments:
+            - @config
+            - @config_text
+            - @template
+        tags:
+            - { name: event.listener }
