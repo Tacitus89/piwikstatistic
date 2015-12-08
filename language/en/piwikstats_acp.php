@@ -39,9 +39,17 @@ $lang = array_merge($lang, array(
 	'ACP_PIWIK_SETTINGS'							=> 'Piwik Settings',
 	'ACP_PIWIK_STATS_SETTINGS'				=> 'Piwik Statistic Settings',
 	'ACP_PIWIK_STATS_ACTIVATE'				=> 'Piwik Statistic Site Activated',
+  'ACP_PIWIK_URL'                   => 'Piwik URL',
+  'ACP_PIWIK_URL_EXPLAIN'           => 'Explain',
 	'ACP_PIWIK_TOKEN'									=> 'Piwik Token',
 	'ACP_PIWIK_TOKEN_EXPLAIN'					=> 'ADD Explain',
+  'ACP_PIWIK_SITE_ID'               => 'Site ID',
+  'ACP_PIWIK_SITE_ID_EXPLAIN'       => 'Explain',
+  'ACP_PIWIK_LAST_DAY'              => 'Last Day',
+  'ACP_PIWIK_LAST_DAY_EXPLAIN'      => 'Explain',
 	'ACP_PIWIK_STATS_INDEX_ACTIVATE'	=> 'Piwik Statistic Activated on Index',
+  'ACP_PIWIK_LAST_DAY_INDEX'        => 'Last Day on Index',
+  'ACP_PIWIK_LAST_DAY_INDEX_EXPLAIN'=> 'Explain',
 	'ACP_PIWIK_CODE'									=> 'Piwik Code',
 	'ACP_PIWIK_CODE_EXPLAIN'					=> 'Add Explain'
 ));
