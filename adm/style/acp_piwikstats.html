@@ -28,10 +28,28 @@
 					<label><input type="radio" class="radio" name="piwik_stats_active" value="0"<!-- IF not S_PIWIK_STATS_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 				</dd>
 			</dl>
+      <dl>
+				<dt><label for="piwik_url">{L_ACP_PIWIK_URL}</label><br /><span>{L_ACP_PIWIK_URL_EXPLAIN}</span></dt>
+				<dd>
+					<input name="piwik_url" size="32" maxlength="64" value="{PIWIK_URL}" type="text">
+				</dd>
+			</dl>
 			<dl>
 				<dt><label for="piwik_token">{L_ACP_PIWIK_TOKEN}</label><br /><span>{L_ACP_PIWIK_TOKEN_EXPLAIN}</span></dt>
 				<dd>
 					<input name="piwik_token" size="32" maxlength="32" value="{PIWIK_TOKEN}" type="text">
+				</dd>
+			</dl>
+      <dl>
+				<dt><label for="piwik_site_id">{L_ACP_PIWIK_SITE_ID}</label><br /><span>{L_ACP_PIWIK_SITE_ID_EXPLAIN}</span></dt>
+				<dd>
+					<input name="piwik_site_id" size="16" maxlength="16" value="{PIWIK_SITE_ID}" type="text">
+				</dd>
+			</dl>
+      <dl>
+				<dt><label for="piwik_last_day">{L_ACP_PIWIK_LAST_DAY}</label><br /><span>{L_ACP_PIWIK_LAST_DAY_EXPLAIN}</span></dt>
+				<dd>
+					<input name="piwik_last_day" size="3" maxlength="3" value="{PIWIK_LAST_DAY}" type="text">
 				</dd>
 			</dl>
 			<dl>
@@ -39,6 +57,12 @@
 				<dd>
 					<label><input type="radio" class="radio" id="piwik_stats_index_active" name="piwik_stats_index_active" value="1"<!-- IF S_PIWIK_STATS_INDEX_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
 					<label><input type="radio" class="radio" name="piwik_stats_index_active" value="0"<!-- IF not S_PIWIK_STATS_INDEX_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+      <dl>
+				<dt><label for="piwik_last_day_index">{L_ACP_PIWIK_LAST_DAY_INDEX}</label><br /><span>{L_ACP_PIWIK_LAST_DAY_INDEX_EXPLAIN}</span></dt>
+				<dd>
+					<input name="piwik_last_day_index" size="3" maxlength="3" value="{PIWIK_LAST_DAY_INDEX}" type="text">
 				</dd>
 			</dl>
 		</fieldset>

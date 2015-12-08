@@ -4,8 +4,18 @@
 <div id="page-body">
     <h2 class="forum-title"><a href="{U_PAGE_TITLE}">{L_PAGE_TITLE}</a></h2>
 
-    <img src="data:image/png;base64,{PIWIK_IMAGE}" >{PIWIK_IMAGE}
-
+    <div class="panel">
+      <div class="inner">
+        <div class="content">
+          <fieldset class="fields2">
+            <dl>
+              <dt><label>{L_PIWIK_VISITORS}{L_COLON}</label></dt>
+              <dd><img src="data:image/png;base64,{PIWIK_IMAGE}" /></dd>
+            </dl>
+          </fieldset>
+        </div>
+      </div>
+    </div>
 </div>
 
 <!-- INCLUDE overall_footer.html -->
