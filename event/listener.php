@@ -22,23 +22,33 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\config\db_text */
 	protected $config_text;
 
+	/** @var \phpbb\controller\helper */
+	protected $helper;
+
 	/** @var \phpbb\template\template */
 	protected $template;
+
+	/** @var \phpbb\user */
+	protected $user;
 
 	/**
 	* Constructor
 	*
 	* @param \phpbb\config\config        $config             Config object
 	* @param \phpbb\config\db_text       $config_text        DB text object
+	* @param \phpbb\controller\helper    $helper  					 Controller helper object
 	* @param \phpbb\template\template    $template           Template object
+	* @param \phpbb\user                 $user               User object
 	* @return \phpbb\piwikstats\event\listener
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\config\db_text $config_text, \phpbb\template\template $template)
+	public function __construct(\phpbb\config\config $config, \phpbb\config\db_text $config_text, \phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\user $user)
 	{
 		$this->config = $config;
 		$this->config_text = $config_text;
+		$this->helper = $helper;
 		$this->template = $template;
+		$this->user = $user;
 	}
 
 	/**
@@ -51,7 +61,8 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.page_footer'					=> 'page_footer',
+			'core.page_footer'							=> 'page_footer',
+			'core.index_modify_page_title'	=> 'add_on_index',
 		);
 	}
 
@@ -67,6 +78,42 @@ class listener implements EventSubscriberInterface
 		$this->template->assign_vars(array(
 			'S_PIWIK_EXT_ACTIVE'	=> (!empty($this->config['piwik_ext_active'])) ? true : false,
 			'PIWIK_CODE' 					=> $this->config_text->get('piwik_code'),
+		));
+	}
+
+	/**
+	* Add some stats from piwik on the index
+	*
+	* @param object $event The event object
+	* @return null
+	* @access public
+	*/
+	public function add_on_index($event)
+	{
+		//url to piwik
+		$url = "http://www.strategie-zone.de/piwik/index.php?module=API&method=VisitsSummary.get"
+		  . "&idSite=1&apiModule=VisitsSummary&apiAction=get"
+		  . "&period=range&date=last7"
+		  . "&token_auth=". $this->config_text->get('piwik_token')
+		  . "&format=php";
+
+
+		//$url = "http://www.strategie-zone.de/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=VisitsSummary&actionToWidgetize=getSparklines&idSite=1&period=day&date=yesterday&disableLink=1&widget=1&token_auth=". $this->config_text->get('piwik_token');
+		//echo file_get_contents($url);
+		//return;
+		$data = unserialize(file_get_contents($url));
+
+		// Add piwikstats language file
+		$this->user->add_lang_ext('tacitus89/piwikstats', 'piwikstats');
+
+		// Output piwikstats to the template
+		$this->template->assign_vars(array(
+			'S_PIWIK_STATS_INDEX_ACTIVATE'	=> (!empty($this->config['piwik_stats_index_active'])) ? true : false,
+			'PIWIK_STATS_URL'								=> $this->helper->route('tacitus89_piwikstats_main_controller'),
+			'PIWIK_VISITORS' 								=> number_format($data['nb_visits'], 0, ',', '.'),
+			'PIWIK_ACTIONS'									=> number_format($data['nb_actions'], 0, ',', '.'),
+			'PIWIK_AVG_TIME_ON_SITE'				=> gmdate("H:i:s", $data['avg_time_on_site']),
+			'PIWIK_ACTIONS_PER_VISIT'				=> round($data['nb_actions_per_visit'], 2),
 		));
 	}
 }

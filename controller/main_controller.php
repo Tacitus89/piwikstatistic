@@ -68,17 +68,17 @@ class main_controller
 		// Bildgroesse und Farbe
 		$iImageWidth = 500;
 		$iImageHeight = 200;
-		$sBarColor = "000000";
+		$sBarColor = "887799";
 
 		// Domain und Pfad zu Piwik anpassen
-		$sBaseUrl = "http://www.strategie-zone.de/piwik/index.php?module=API&method=VisitsSummary.get"
+		$sBaseUrl = "http://www.strategie-zone.de/piwik/index.php?module=API&method=ImageGraph.get"
 		  . "&idSite=$iPiwikSiteId&apiModule=VisitsSummary&apiAction=get"
-		  . "&period=range&date=2015-12-01,2015-12-08"
+		  . "&period=day&date=previous30"
 		  . "&token_auth=$sPiwikToken"
-		  . "&width=$iImageWidth&height=$iImageHeight&colors=$sBarColor&viewDataTable=table&format=html";
+		  . "&width=$iImageWidth&height=$iImageHeight&colors=$sBarColor";
 
 		$this->template->assign_vars(array(
-			'PIWIK_IMAGE' 					=> ($sBaseUrl),
+			'PIWIK_IMAGE' 					=> base64_encode(file_get_contents($sBaseUrl)),
 		));
 
 		// Send all data to the template file
