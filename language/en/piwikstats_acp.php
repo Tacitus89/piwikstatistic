@@ -33,10 +33,15 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'ACP_PIWIK_DESC'							=> 'Add Desc',
-	'ACP_PIWIK_EXT_CONF_SETTINGS'	=> 'Extension Settings',
-	'ACP_PIWIK_EXT_ACTIVATE'			=> 'Piwik Statistic Activated',
-	'ACP_PIWIK_SETTINGS'					=> 'Piwik Settings',
-	'ACP_PIWIK_CODE'							=> 'Piwik Code',
-	'ACP_PIWIK_CODE_EXPLAIN'			=> 'Add Explain'
+	'ACP_PIWIK_DESC'									=> 'Add Desc',
+	'ACP_PIWIK_EXT_CONF_SETTINGS'			=> 'Extension Settings',
+	'ACP_PIWIK_EXT_ACTIVATE'					=> 'Piwik Statistic Activated',
+	'ACP_PIWIK_SETTINGS'							=> 'Piwik Settings',
+	'ACP_PIWIK_STATS_SETTINGS'				=> 'Piwik Statistic Settings',
+	'ACP_PIWIK_STATS_ACTIVATE'				=> 'Piwik Statistic Site Activated',
+	'ACP_PIWIK_TOKEN'									=> 'Piwik Token',
+	'ACP_PIWIK_TOKEN_EXPLAIN'					=> 'ADD Explain',
+	'ACP_PIWIK_STATS_INDEX_ACTIVATE'	=> 'Piwik Statistic Activated on Index',
+	'ACP_PIWIK_CODE'									=> 'Piwik Code',
+	'ACP_PIWIK_CODE_EXPLAIN'					=> 'Add Explain'
 ));

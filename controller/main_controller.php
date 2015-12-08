@@ -71,14 +71,14 @@ class main_controller
 		$sBarColor = "000000";
 
 		// Domain und Pfad zu Piwik anpassen
-		$sBaseUrl = "http://www.strategie-zone.de/piwik/index.php?module=API&method=ImageGraph.get"
+		$sBaseUrl = "http://www.strategie-zone.de/piwik/index.php?module=API&method=VisitsSummary.get"
 		  . "&idSite=$iPiwikSiteId&apiModule=VisitsSummary&apiAction=get"
-		  . "&period=day&date=previous30"
+		  . "&period=range&date=2015-12-01,2015-12-08"
 		  . "&token_auth=$sPiwikToken"
-		  . "&width=$iImageWidth&height=$iImageHeight&colors=$sBarColor";
+		  . "&width=$iImageWidth&height=$iImageHeight&colors=$sBarColor&viewDataTable=table&format=html";
 
 		$this->template->assign_vars(array(
-			'PIWIK_IMAGE' 					=> base64_encode(file_get_contents($sBaseUrl)),
+			'PIWIK_IMAGE' 					=> ($sBaseUrl),
 		));
 
 		// Send all data to the template file

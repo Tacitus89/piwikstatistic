@@ -65,6 +65,9 @@ class piwikstats_module
 			{
 				// Set the options
 				$this->config->set('piwik_ext_active', $this->request->variable('piwik_ext_active', 1));
+				$this->config->set('piwik_stats_active', $this->request->variable('piwik_stats_active', 1));
+				$this->config_text->set('piwik_token', $this->request->variable('piwik_token', ''));
+				$this->config->set('piwik_stats_index_active', $this->request->variable('piwik_stats_index_active', 1));
 				$this->config_text->set('piwik_code', $this->request->variable('piwik_code', ''));
 
 				// Add option settings change action to the admin log
@@ -83,8 +86,11 @@ class piwikstats_module
 
 			'U_ACTION'		=> $this->u_action,
 
-			'S_PIWIK_EXT_ACTIVE'			=> $this->config['piwik_ext_active'] ? true : false,
-			'PIWIK_CODE_TEXT'					=> $this->config_text->get('piwik_code'),
+			'S_PIWIK_EXT_ACTIVE'					=> $this->config['piwik_ext_active'] ? true : false,
+			'S_PIWIK_STATS_ACTIVE'				=> $this->config['piwik_stats_active'] ? true : false,
+			'PIWIK_TOKEN'									=> $this->config_text->get('piwik_token'),
+			'S_PIWIK_STATS_INDEX_ACTIVE'	=> $this->config['piwik_stats_index_active'] ? true : false,
+			'PIWIK_CODE'									=> $this->config_text->get('piwik_code'),
 		));
 
 		// Load a template from adm/style for our ACP page

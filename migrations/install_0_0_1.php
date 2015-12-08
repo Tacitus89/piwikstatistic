@@ -31,8 +31,11 @@ class install_0_0_1 extends \phpbb\db\migration\migration
 			array('config.add', array('piwikstats_version', $this->piwikstats_version)),
 			// All config
 			array('config.add', array('piwikstats_active', 1)),
+			array('config.add', array('piwik_stats_active', 1)),
+			array('config.add', array('piwik_stats_index_active', 1)),
 			// config_text
 			array('config_text.add', array('piwik_code', '')),
+			array('config_text.add', array('piwik_token', '')),
 
 			//Set ACP Module
 			array('module.add', array('acp', 'ACP_CAT_DOT_MODS', 'ACP_PIWIK_INDEX')),
