@@ -90,6 +90,12 @@ class listener implements EventSubscriberInterface
 	*/
 	public function add_on_index($event)
 	{
+    //Is it activated?
+    if ((!empty($this->config['piwik_stats_index_active'])) == false || (!empty($this->config['piwik_ext_active'])) == false)
+		{
+			return;
+		}
+
 		//url to piwik
 		$url = "http://www.strategie-zone.de/piwik/index.php?module=API&method=VisitsSummary.get"
 		  . "&idSite=1&apiModule=VisitsSummary&apiAction=get"
