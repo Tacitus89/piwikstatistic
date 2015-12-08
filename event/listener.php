@@ -96,11 +96,19 @@ class listener implements EventSubscriberInterface
 			return;
 		}
 
+    // Get piwikstats data from the config_text object
+		$config_text = $this->config_text->get_array(array(
+			'piwik_url',
+			'piwik_token',
+			'piwik_site_id',
+			'piwik_last_day_index'
+		));
+
 		//url to piwik
-		$url = "http://www.strategie-zone.de/piwik/index.php?module=API&method=VisitsSummary.get"
-		  . "&idSite=1&apiModule=VisitsSummary&apiAction=get"
-		  . "&period=range&date=last7"
-		  . "&token_auth=". $this->config_text->get('piwik_token')
+		$url = $config_text['piwik_url']."/index.php?module=API&method=VisitsSummary.get"
+		  . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=VisitsSummary&apiAction=get"
+		  . "&period=range&date=last". $config_text['piwik_last_day_index']
+		  . "&token_auth=". $config_text['piwik_token']
 		  . "&format=php";
 
 
@@ -120,6 +128,7 @@ class listener implements EventSubscriberInterface
 			'PIWIK_ACTIONS'									=> number_format($data['nb_actions'], 0, ',', '.'),
 			'PIWIK_AVG_TIME_ON_SITE'				=> gmdate("H:i:s", $data['avg_time_on_site']),
 			'PIWIK_ACTIONS_PER_VISIT'				=> round($data['nb_actions_per_visit'], 2),
+      'PIWIK_TIME'                    => $config_text['piwik_last_day_index']
 		));
 	}
 }
