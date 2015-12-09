@@ -5,7 +5,6 @@
 	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
 
 	<h1>{L_ACP_PIWIK_TITLE}</h1>
-	<p>{L_ACP_PIWIK_DESC}</p>
 
 	<form id="module" method="post" action="{U_ACTION}">
 		<fieldset>
@@ -20,11 +19,59 @@
 		</fieldset>
 
 		<fieldset>
+			<legend>{L_ACP_PIWIK_STATS_SETTINGS}</legend>
+			<dl>
+				<dt><label for="piwik_stats_active">{L_ACP_PIWIK_STATS_ACTIVATE}</label></dt>
+				<dd>
+					<label><input type="radio" class="radio" id="piwik_stats_active" name="piwik_stats_active" value="1"<!-- IF S_PIWIK_STATS_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="piwik_stats_active" value="0"<!-- IF not S_PIWIK_STATS_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+      <dl>
+				<dt><label for="piwik_url">{L_ACP_PIWIK_URL}</label><br /><span>{L_ACP_PIWIK_URL_EXPLAIN}</span></dt>
+				<dd>
+					<input name="piwik_url" size="32" maxlength="64" value="{PIWIK_URL}" type="text">
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="piwik_token">{L_ACP_PIWIK_TOKEN}</label><br /><span>{L_ACP_PIWIK_TOKEN_EXPLAIN}</span></dt>
+				<dd>
+					<input name="piwik_token" size="32" maxlength="32" value="{PIWIK_TOKEN}" type="text">
+				</dd>
+			</dl>
+      <dl>
+				<dt><label for="piwik_site_id">{L_ACP_PIWIK_SITE_ID}</label><br /><span>{L_ACP_PIWIK_SITE_ID_EXPLAIN}</span></dt>
+				<dd>
+					<input name="piwik_site_id" size="16" maxlength="16" value="{PIWIK_SITE_ID}" type="text">
+				</dd>
+			</dl>
+      <dl>
+				<dt><label for="piwik_time">{L_ACP_PIWIK_TIME}</label><br /><span>{L_ACP_PIWIK_TIME_EXPLAIN}</span></dt>
+				<dd>
+					<input name="piwik_time" size="3" maxlength="3" value="{PIWIK_TIME}" type="text">
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="piwik_stats_index_active">{L_ACP_PIWIK_STATS_INDEX_ACTIVATE}</label></dt>
+				<dd>
+					<label><input type="radio" class="radio" id="piwik_stats_index_active" name="piwik_stats_index_active" value="1"<!-- IF S_PIWIK_STATS_INDEX_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="piwik_stats_index_active" value="0"<!-- IF not S_PIWIK_STATS_INDEX_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+      <dl>
+				<dt><label for="piwik_time_index">{L_ACP_PIWIK_TIME_INDEX}</label><br /><span>{L_ACP_PIWIK_TIME_INDEX_EXPLAIN}</span></dt>
+				<dd>
+					<input name="piwik_time_index" size="3" maxlength="3" value="{PIWIK_TIME_INDEX}" type="text">
+				</dd>
+			</dl>
+		</fieldset>
+
+		<fieldset>
 			<legend>{L_ACP_PIWIK_SETTINGS}</legend>
 			<dl>
-				<dt><label for="piwik_code">{L_ACP_PIWIK_CODE}</label><br /><span>{L_ACP_PIWIK_CODE_EXPLAIN}</span></dt>
+				<dt><label for="piwik_code">{L_ACP_PIWIK_CODE}</label></dt>
 				<dd>
-					<textarea name="piwik_code" rows="10" cols="40">{PIWIK_CODE_TEXT}</textarea>
+					<textarea name="piwik_code" rows="10" cols="40">{PIWIK_CODE}</textarea>
 				</dd>
 			</dl>
 		</fieldset>

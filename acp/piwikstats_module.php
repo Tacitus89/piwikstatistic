@@ -65,6 +65,13 @@ class piwikstats_module
 			{
 				// Set the options
 				$this->config->set('piwik_ext_active', $this->request->variable('piwik_ext_active', 1));
+				$this->config->set('piwik_stats_active', $this->request->variable('piwik_stats_active', 1));
+        $this->config_text->set('piwik_url', $this->request->variable('piwik_url', ''));
+				$this->config_text->set('piwik_token', $this->request->variable('piwik_token', ''));
+        $this->config_text->set('piwik_site_id', $this->request->variable('piwik_site_id', ''));
+        $this->config_text->set('piwik_time', $this->request->variable('piwik_time', ''));
+				$this->config->set('piwik_stats_index_active', $this->request->variable('piwik_stats_index_active', 1));
+        $this->config_text->set('piwik_time_index', $this->request->variable('piwik_time_index', ''));
 				$this->config_text->set('piwik_code', $this->request->variable('piwik_code', ''));
 
 				// Add option settings change action to the admin log
@@ -76,6 +83,16 @@ class piwikstats_module
 			}
 		}
 
+    // Get piwikstats data from the config_text object
+		$config_text = $this->config_text->get_array(array(
+			'piwik_url',
+			'piwik_token',
+			'piwik_site_id',
+			'piwik_time',
+			'piwik_time_index',
+			'piwik_code',
+		));
+
 		// Set output vars for display in the template
 		$this->template->assign_vars(array(
 			'S_ERROR'		=> (sizeof($errors)) ? true : false,
@@ -83,8 +100,15 @@ class piwikstats_module
 
 			'U_ACTION'		=> $this->u_action,
 
-			'S_PIWIK_EXT_ACTIVE'			=> $this->config['piwik_ext_active'] ? true : false,
-			'PIWIK_CODE_TEXT'					=> $this->config_text->get('piwik_code'),
+			'S_PIWIK_EXT_ACTIVE'					=> $this->config['piwik_ext_active'] ? true : false,
+			'S_PIWIK_STATS_ACTIVE'				=> $this->config['piwik_stats_active'] ? true : false,
+      'PIWIK_URL'									  => $config_text['piwik_url'],
+			'PIWIK_TOKEN'									=> $config_text['piwik_token'],
+      'PIWIK_SITE_ID'			        	=> $config_text['piwik_site_id'],
+      'PIWIK_TIME'			       	=> $config_text['piwik_time'],
+			'S_PIWIK_STATS_INDEX_ACTIVE'	=> $this->config['piwik_stats_index_active'] ? true : false,
+      'PIWIK_TIME_INDEX'				=> $config_text['piwik_time_index'],
+			'PIWIK_CODE'									=> $config_text['piwik_code'],
 		));
 
 		// Load a template from adm/style for our ACP page
