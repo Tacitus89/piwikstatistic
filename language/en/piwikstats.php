@@ -37,5 +37,12 @@ $lang = array_merge($lang, array(
 	'PIWIK_VISITORS'					=> 'Visitors',
 	'PIWIK_ACTIONS'						=> 'Actions',
 	'PIWIK_AVG_TIME_ON_SITE'	=> 'Avg Time on Site',
-  'PIWIK_ACTIONS_PER_VISIT'	=> 'Actions per Visit'
+  'PIWIK_ACTIONS_PER_VISIT'	=> 'Actions per Visit',
+  'PIWIK_VISITS'            => 'Visits in the last ',
+  'PIWIK_VISIT_TIME'        => 'Visiting time in the last ',
+  'PIWIK_VISIT_DAY'         => 'Visiting time in days in the last ',
+  'PIWIK_BROWSERS'          => 'Browser in the last ',
+  'PIWIK_COUNTRY'           => 'Visitors from countries in the last ',
+  'PIWIK_DAY'               => ' days',
+  'PIWIK_WEEK'              => ' weeks'
 ));

@@ -61,6 +61,12 @@ class main_controller
 	*/
 	public function display()
 	{
+    // Add the piwikstats ACP lang file
+		$this->user->add_lang_ext('tacitus89/piwikstats', 'piwikstats');
+
+    // Set the page title
+		$this->page_title = $this->user->lang('L_PIWIK_STATS');
+
     //get the config text data for piwikstats
     $config_text = $this->getConfigText();
 
@@ -75,7 +81,7 @@ class main_controller
 		));
 
 		// Send all data to the template file
-		return $this->helper->render('piwik.html', $this->user->lang('PIWIKSTATS'));
+		return $this->helper->render('piwik.html', $this->user->lang('PIWIK_STATS'));
 	}
 
   /**
