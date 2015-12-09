@@ -44,5 +44,6 @@ $lang = array_merge($lang, array(
   'PIWIK_BROWSERS'          => 'Browser in the last ',
   'PIWIK_COUNTRY'           => 'Visitors from countries in the last ',
   'PIWIK_DAY'               => ' days',
-  'PIWIK_WEEK'              => ' weeks'
+  'PIWIK_WEEK'              => ' weeks',
+  'PIWIK_BASED_ON'          => 'based on the last ',
 ));
