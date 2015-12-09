@@ -61,28 +61,48 @@ class main_controller
 	*/
 	public function display()
 	{
-		// anpassen
-		$sPiwikToken = "17321cd9713af39fa72775a6c636002b";
-		$iPiwikSiteId = 1;
-
-		// Bildgroesse und Farbe
-		$iImageWidth = 500;
-		$iImageHeight = 200;
-		$sBarColor = "887799";
-
-		// Domain und Pfad zu Piwik anpassen
-		$sBaseUrl = "http://www.strategie-zone.de/piwik/index.php?module=API&method=ImageGraph.get"
-		  . "&idSite=$iPiwikSiteId&apiModule=VisitsSummary&apiAction=get"
-		  . "&period=day&date=previous30"
-		  . "&token_auth=$sPiwikToken"
-		  . "&width=$iImageWidth&height=$iImageHeight&colors=$sBarColor";
+    //get the config text data for piwikstats
+    $config_text = $this->getConfigText();
 
 		$this->template->assign_vars(array(
-			'PIWIK_IMAGE' 					=> base64_encode(file_get_contents($sBaseUrl)),
+			'PIWIK_IMAGE' 					=> base64_encode($this->getPiwikImage($config_text, "VisitsSummary", "get", 30)),
 		));
 
 		// Send all data to the template file
 		return $this->helper->render('piwik.html', $this->user->lang('PIWIKSTATS'));
 	}
+
+  /**
+	* Get the data from piwik
+	*
+	* @return array
+	* @access private
+	*/
+  private function getPiwikImage($config_text, $module, $action, $time)
+  {
+    $url = $config_text['piwik_url']."/index.php?module=API&method=ImageGraph.get"
+		  . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=$module&apiAction=$action"
+		  . "&period=day&date=last". $time
+		  . "&token_auth=". $config_text['piwik_token']
+		  . "&format=php";
+
+    return file_get_contents($url);
+  }
+
+  /**
+	* Get piwikstats data from the config_text object
+	*
+	* @return array
+	* @access private
+	*/
+  private function getConfigText()
+  {
+    // Get piwikstats data from the config_text object
+		return $this->config_text->get_array(array(
+			'piwik_url',
+			'piwik_token',
+			'piwik_site_id'
+		));
+  }
 
 }

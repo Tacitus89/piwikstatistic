@@ -111,10 +111,7 @@ class listener implements EventSubscriberInterface
 		  . "&token_auth=". $config_text['piwik_token']
 		  . "&format=php";
 
-
-		//$url = "http://www.strategie-zone.de/piwik/index.php?module=Widgetize&action=iframe&widget=1&moduleToWidgetize=VisitsSummary&actionToWidgetize=getSparklines&idSite=1&period=day&date=yesterday&disableLink=1&widget=1&token_auth=". $this->config_text->get('piwik_token');
-		//echo file_get_contents($url);
-		//return;
+    //unserialize the data
 		$data = unserialize(file_get_contents($url));
 
 		// Add piwikstats language file
