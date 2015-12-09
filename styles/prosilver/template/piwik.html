@@ -6,16 +6,41 @@
 
     <div class="panel">
       <div class="inner">
-        <div class="content">
-          <fieldset class="fields2">
-            <dl>
-              <dt><label>{L_PIWIK_VISITORS}{L_COLON}</label></dt>
-              <dd><img src="data:image/png;base64,{PIWIK_IMAGE}" /></dd>
-            </dl>
-          </fieldset>
+        <div class="column1">
+          <h3>{L_PIWIK_VISITS_DAY}{PIWIK_TIME}{L_PIWIK_DAY}</h3>
+          <img src="data:image/png;base64,{PIWIK_VISITS_DAY}" />
+        </div>
+        <div class="column2">
+          <h3>{L_PIWIK_VISITS_WEEK}{PIWIK_TIME}{L_PIWIK_WEEK}</h3>
+          <img src="data:image/png;base64,{PIWIK_VISITS_WEEK}" />
         </div>
       </div>
     </div>
+    <div class="panel">
+      <div class="inner">
+        <div class="column1">
+          <h3>{L_PIWIK_VISIT_TIME}{PIWIK_TIME}{L_PIWIK_DAY}</h3>
+          <img src="data:image/png;base64,{PIWIK_VISIT_TIME}" />
+        </div>
+        <div class="column2">
+          <h3>{L_PIWIK_VISIT_DAY}{PIWIK_TIME}{L_PIWIK_DAY}</h3>
+          <img src="data:image/png;base64,{PIWIK_VISIT_DAY}" />
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="inner">
+        <div class="column1">
+          <h3>{L_PIWIK_BROWSERS}{PIWIK_TIME}{L_PIWIK_DAY}</h3>
+          <img src="data:image/png;base64,{PIWIK_BROWSERS}" />
+        </div>
+        <div class="column2">
+          <h3>{L_PIWIK_COUNTRY}{PIWIK_TIME}{L_PIWIK_DAY}</h3>
+          <img src="data:image/png;base64,{PIWIK_COUNTRY}" />
+        </div>
+      </div>
+    </div>
+
 </div>
 
 <!-- INCLUDE overall_footer.html -->

@@ -69,9 +69,9 @@ class piwikstats_module
         $this->config_text->set('piwik_url', $this->request->variable('piwik_url', ''));
 				$this->config_text->set('piwik_token', $this->request->variable('piwik_token', ''));
         $this->config_text->set('piwik_site_id', $this->request->variable('piwik_site_id', ''));
-        $this->config_text->set('piwik_last_day', $this->request->variable('piwik_last_day', ''));
+        $this->config_text->set('piwik_time', $this->request->variable('piwik_time', ''));
 				$this->config->set('piwik_stats_index_active', $this->request->variable('piwik_stats_index_active', 1));
-        $this->config_text->set('piwik_last_day_index', $this->request->variable('piwik_last_day_index', ''));
+        $this->config_text->set('piwik_time_index', $this->request->variable('piwik_time_index', ''));
 				$this->config_text->set('piwik_code', $this->request->variable('piwik_code', ''));
 
 				// Add option settings change action to the admin log
@@ -88,8 +88,8 @@ class piwikstats_module
 			'piwik_url',
 			'piwik_token',
 			'piwik_site_id',
-			'piwik_last_day',
-			'piwik_last_day_index',
+			'piwik_time',
+			'piwik_time_index',
 			'piwik_code',
 		));
 
@@ -105,9 +105,9 @@ class piwikstats_module
       'PIWIK_URL'									  => $config_text['piwik_url'],
 			'PIWIK_TOKEN'									=> $config_text['piwik_token'],
       'PIWIK_SITE_ID'			        	=> $config_text['piwik_site_id'],
-      'PIWIK_LAST_DAY'			       	=> $config_text['piwik_last_day'],
+      'PIWIK_TIME'			       	=> $config_text['piwik_time'],
 			'S_PIWIK_STATS_INDEX_ACTIVE'	=> $this->config['piwik_stats_index_active'] ? true : false,
-      'PIWIK_LAST_DAY_INDEX'				=> $config_text['piwik_last_day_index'],
+      'PIWIK_TIME_INDEX'				=> $config_text['piwik_time_index'],
 			'PIWIK_CODE'									=> $config_text['piwik_code'],
 		));
 

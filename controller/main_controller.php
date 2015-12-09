@@ -65,7 +65,13 @@ class main_controller
     $config_text = $this->getConfigText();
 
 		$this->template->assign_vars(array(
-			'PIWIK_IMAGE' 					=> base64_encode($this->getPiwikImage($config_text, "VisitsSummary", "get", 30)),
+      'PIWIK_VISITS_DAY'					=> base64_encode($this->getPiwikImage($config_text, "VisitsSummary", "get", "evolution", "day")),
+      'PIWIK_VISITS_WEEK'					=> base64_encode($this->getPiwikImage($config_text, "VisitsSummary", "get", "evolution", "week")),
+      'PIWIK_VISIT_TIME'					=> base64_encode($this->getPiwikImage($config_text, "VisitTime", "getVisitInformationPerServerTime ", "verticalBar")),
+      'PIWIK_VISIT_DAY' 					=> base64_encode($this->getPiwikImage($config_text, "VisitTime", "getByDayOfWeek ", "verticalBar")),
+      'PIWIK_BROWSERS' 				   	=> base64_encode($this->getPiwikImage($config_text, "DevicesDetection", "getBrowsers ", "horizontalBar")),
+      'PIWIK_COUNTRY' 	   				=> base64_encode($this->getPiwikImage($config_text, "UserCountry", "getCountry ", "horizontalBar")),
+      'PIWIK_TIME'                => $config_text['piwik_time']
 		));
 
 		// Send all data to the template file
@@ -78,13 +84,13 @@ class main_controller
 	* @return array
 	* @access private
 	*/
-  private function getPiwikImage($config_text, $module, $action, $time)
+  private function getPiwikImage($config_text, $module, $action, $graphType= "evolution", $period = "range")
   {
     $url = $config_text['piwik_url']."/index.php?module=API&method=ImageGraph.get"
 		  . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=$module&apiAction=$action"
-		  . "&period=day&date=last". $time
+		  . "&period=$period&date=last". $config_text['piwik_time']
 		  . "&token_auth=". $config_text['piwik_token']
-		  . "&format=php";
+		  . "&format=php&height=200&width=500&graphType=$graphType";
 
     return file_get_contents($url);
   }
@@ -101,7 +107,8 @@ class main_controller
 		return $this->config_text->get_array(array(
 			'piwik_url',
 			'piwik_token',
-			'piwik_site_id'
+			'piwik_site_id',
+      'piwik_time',
 		));
   }
 

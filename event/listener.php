@@ -101,13 +101,13 @@ class listener implements EventSubscriberInterface
 			'piwik_url',
 			'piwik_token',
 			'piwik_site_id',
-			'piwik_last_day_index'
+			'piwik_time_index'
 		));
 
 		//url to piwik
 		$url = $config_text['piwik_url']."/index.php?module=API&method=VisitsSummary.get"
 		  . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=VisitsSummary&apiAction=get"
-		  . "&period=range&date=last". $config_text['piwik_last_day_index']
+		  . "&period=range&date=last". $config_text['piwik_time_index']
 		  . "&token_auth=". $config_text['piwik_token']
 		  . "&format=php";
 
@@ -125,7 +125,7 @@ class listener implements EventSubscriberInterface
 			'PIWIK_ACTIONS'									=> number_format($data['nb_actions'], 0, ',', '.'),
 			'PIWIK_AVG_TIME_ON_SITE'				=> gmdate("H:i:s", $data['avg_time_on_site']),
 			'PIWIK_ACTIONS_PER_VISIT'				=> round($data['nb_actions_per_visit'], 2),
-      'PIWIK_TIME'                    => $config_text['piwik_last_day_index']
+      'PIWIK_TIME'                    => $config_text['piwik_time_index']
 		));
 	}
 }

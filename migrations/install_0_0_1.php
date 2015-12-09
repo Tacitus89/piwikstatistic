@@ -37,8 +37,8 @@ class install_0_0_1 extends \phpbb\db\migration\migration
       array('config_text.add', array('piwik_url', '')),
       array('config_text.add', array('piwik_token', '')),
       array('config_text.add', array('piwik_site_id', '')),
-      array('config_text.add', array('piwik_last_day', 30)),
-      array('config_text.add', array('piwik_last_day_index', 7)),
+      array('config_text.add', array('piwik_time', 30)),
+      array('config_text.add', array('piwik_time_index', 7)),
       array('config_text.add', array('piwik_code', '')),
 
 			//Set ACP Module
