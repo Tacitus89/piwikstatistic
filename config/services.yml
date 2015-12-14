@@ -18,3 +18,4 @@ services:
             - @controller.helper
             - @template
             - @user
+            - @cache.driver
