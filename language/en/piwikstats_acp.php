@@ -43,16 +43,20 @@ $lang = array_merge($lang, array(
     'ACP_PIWIK_TOKEN'				    => 'Piwik Token',
     'ACP_PIWIK_TOKEN_EXPLAIN'           => 'Set it "anonymous" if it have the view permissions. Otherwise you must put a token_auth from a user, which has the view permissions.',
     'ACP_PIWIK_SITE_ID'                 => 'Site ID',
-    'ACP_PIWIK_SITE_ID_EXPLAIN'         => 'Set a single Site-ID or "all" for all sites.',
+    'ACP_PIWIK_SITE_ID_EXPLAIN'         => 'Set a single Site-ID.',
     'ACP_PIWIK_TIME'                    => 'Time period',
-    'ACP_PIWIK_TIME_EXPLAIN'            => 'For the informations on Piwik Statistic Site',
+    'ACP_PIWIK_TIME_EXPLAIN'            => 'For the informations on Piwik Statistic Site in days',
     'ACP_PIWIK_CACHE'                   => 'Cache time for Piwik Statistics',
     'ACP_PIWIK_CACHE_EXPLAIN'           => 'Time in seconds. Default: 86400 (1 day)',
+    'ACP_PIWIK_STATS_INDEX_SETTINGS'    => 'Piwik Statistic on Index',
     'ACP_PIWIK_STATS_INDEX_ACTIVATE'    => 'Piwik Statistic Activated on Index',
     'ACP_PIWIK_TIME_INDEX'              => 'Time period on Index',
-    'ACP_PIWIK_TIME_INDEX_EXPLAIN'      => 'For the informations on Index',
+    'ACP_PIWIK_TIME_INDEX_EXPLAIN'      => 'For the informations on index in days',
     'ACP_PIWIK_CACHE_INDEX'             => 'Cache time for Piwik Statistics on Index',
     'ACP_PIWIK_CACHE_INDEX_EXPLAIN'     => 'Time in seconds. Default: 21600 (6 hours)',
     'ACP_PIWIK_CODE'				    => 'Piwik Tracking-Code',
-    'ACP_PIWIKSTATS_SETTINGS_SAVED'     => 'Settings are saved.'
+    'ACP_PIWIKSTATS_SETTINGS_SAVED'     => 'Settings are saved.',
+
+    //errors
+    'ACP_PIWIK_CACHE_TOO_HIGH'          => 'Time for cache is too high.',
 ));

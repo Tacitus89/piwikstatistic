@@ -60,6 +60,13 @@ class piwikstats_module
 				$errors[] = $this->user->lang('FORM_INVALID');
 			}
 
+            $cacheTime = $this->request->variable('piwik_cache', 0);
+            $cacheTimeIndex = $this->request->variable('piwik_cache_index', 0);
+            if($cacheTime > 2592000 || $cacheTimeIndex > 2592000)
+            {
+                $errors[] = $this->user->lang('ACP_PIWIK_CACHE_TOO_HIGH');
+            }
+
 			// If no errors, process the form data
 			if (empty($errors))
 			{
@@ -68,12 +75,12 @@ class piwikstats_module
 				$this->config->set('piwik_stats_active', $this->request->variable('piwik_stats_active', 1));
                 $this->config_text->set('piwik_url', rtrim($this->request->variable('piwik_url', ''), '/'));
 				$this->config_text->set('piwik_token', $this->request->variable('piwik_token', ''));
-                $this->config_text->set('piwik_site_id', $this->request->variable('piwik_site_id', ''));
+                $this->config_text->set('piwik_site_id', $this->request->variable('piwik_site_id', 0));
                 $this->config->set('piwik_time', $this->request->variable('piwik_time', 0));
-                $this->config_text->set('piwik_cache', $this->request->variable('piwik_cache', 0));
+                $this->config_text->set('piwik_cache', $cacheTime);
 				$this->config->set('piwik_stats_index_active', $this->request->variable('piwik_stats_index_active', 1));
                 $this->config->set('piwik_time_index', $this->request->variable('piwik_time_index', 0));
-                $this->config_text->set('piwik_cache_index', $this->request->variable('piwik_cache_index', 0));
+                $this->config_text->set('piwik_cache_index', $cacheTimeIndex);
 				$this->config_text->set('piwik_code', $this->request->variable('piwik_code', ''));
 
 				// Add option settings change action to the admin log

@@ -6,6 +6,13 @@
 
 	<h1>{L_ACP_PIWIK_TITLE}</h1>
 
+    <!-- IF S_ERROR -->
+	<div class="errorbox">
+		<h3>{L_WARNING}</h3>
+		<p>{ERROR_MSG}</p>
+	</div>
+    <!-- ENDIF -->
+
 	<form id="module" method="post" action="{U_ACTION}">
 		<fieldset>
 			<legend>{L_ACP_PIWIK_EXT_CONF_SETTINGS}</legend>

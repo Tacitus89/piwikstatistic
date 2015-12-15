@@ -43,11 +43,12 @@ $lang = array_merge($lang, array(
 	'ACP_PIWIK_TOKEN'                   => 'Piwik Token',
 	'ACP_PIWIK_TOKEN_EXPLAIN'			=> 'Gebe "anonymous" ein, wenn es die View Rechte hat. Ansonsten musst du ein token_auth von einem Benutzer eingeben, der die View Rechte besitzt.',
     'ACP_PIWIK_SITE_ID'                 => 'Seiten ID',
-    'ACP_PIWIK_SITE_ID_EXPLAIN'         => 'Gebe eine einzelne Seiten-ID oder "all" für alle Seiten ein.',
+    'ACP_PIWIK_SITE_ID_EXPLAIN'         => 'Gebe eine einzelne Seiten-ID ein.',
     'ACP_PIWIK_TIME'                    => 'Zeitraum',
     'ACP_PIWIK_TIME_EXPLAIN'            => 'Für die Informationen auf der Piwik Statistik Seite',
     'ACP_PIWIK_CACHE'                   => 'Zeitdauer für Piwik Statistiken im Cache',
     'ACP_PIWIK_CACHE_EXPLAIN'           => 'Zeit in Sekunden. Standard: 86400 (1 Tag)',
+    'ACP_PIWIK_STATS_INDEX_SETTINGS'    => 'Piwik Statistik auf dem Index',
 	'ACP_PIWIK_STATS_INDEX_ACTIVATE'    => 'Piwik Statistik auf dem Index aktiviert',
     'ACP_PIWIK_TIME_INDEX'              => 'Zeitraum auf dem Index',
     'ACP_PIWIK_TIME_INDEX_EXPLAIN'      => 'Für die Informationen auf dem Index',
@@ -55,4 +56,7 @@ $lang = array_merge($lang, array(
     'ACP_PIWIK_CACHE_INDEX_EXPLAIN'     => 'Zeit in Sekunden. Standard: 21600 (6 Stunden)',
 	'ACP_PIWIK_CODE'                    => 'Piwik Tracking-Code',
     'ACP_PIWIKSTATS_SETTINGS_SAVED'     => 'Einstellungen sind gespiechert.'
+
+    //errors
+    'ACP_PIWIK_CACHE_TOO_HIGH'          => 'Die Zeitdauer für den Cache ist zu hoch.',
 ));
