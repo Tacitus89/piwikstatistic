@@ -30,15 +30,17 @@ class install_0_0_1 extends \phpbb\db\migration\migration
 			// Set the current version
 			array('config.add', array('piwikstats_version', $this->piwikstats_version)),
 			// All config
-			array('config.add', array('piwikstats_active', 1)),
+			array('config.add', array('piwikstats_active', 0)),
 			array('config.add', array('piwik_stats_active', 1)),
 			array('config.add', array('piwik_stats_index_active', 1)),
+            array('config.add', array('piwik_time', 30)),
+            array('config.add', array('piwik_time_index', 7)),
 			// config_text
             array('config_text.add', array('piwik_url', '')),
             array('config_text.add', array('piwik_token', '')),
             array('config_text.add', array('piwik_site_id', '')),
-            array('config_text.add', array('piwik_time', 30)),
-            array('config_text.add', array('piwik_time_index', 7)),
+            array('config_text.add', array('piwik_cache', 86400)),
+            array('config_text.add', array('piwik_cache_index', 21600)),
             array('config_text.add', array('piwik_code', '')),
 
 			//Set ACP Module

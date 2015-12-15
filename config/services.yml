@@ -20,3 +20,5 @@ services:
             - @template
             - @user
             - @cache.driver
+            - %core.root_path%
+            - %core.php_ext%

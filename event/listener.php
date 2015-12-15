@@ -106,29 +106,29 @@ class listener implements EventSubscriberInterface
 			return;
 		}
 
-        // Get piwikstats data from the config_text object
-        $config_text = $this->config_text->get_array(array(
-            'piwik_url',
-            'piwik_token',
-            'piwik_site_id',
-            'piwik_time_index'
-        ));
-
         //Get the data from Cache
         $data = $this->cache->get('piwik_stats_index');
 
         //No Data in the Cache
         if($data === false)
         {
+            // Get piwikstats data from the config_text object
+            $config_text = $this->config_text->get_array(array(
+                'piwik_url',
+                'piwik_token',
+                'piwik_site_id',
+                'piwik_cache_index'
+            ));
+
     		//url to piwik
     		$url = $config_text['piwik_url']."/index.php?module=API&method=VisitsSummary.get"
     		  . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=VisitsSummary&apiAction=get"
-    		  . "&period=range&date=last". $config_text['piwik_time_index']
+    		  . "&period=range&date=last". $this->config['piwik_time_index']
     		  . "&token_auth=". $config_text['piwik_token']
     		  . "&format=php";
 
             $data = file_get_contents($url);
-            $this->cache->put('piwik_stats_index', $data);
+            $this->cache->put('piwik_stats_index', $data, $config_text['piwik_cache_index']);
         }
 
         //unserialize the data
@@ -145,7 +145,7 @@ class listener implements EventSubscriberInterface
 			'PIWIK_ACTIONS'					=> number_format($data['nb_actions'], 0, ',', '.'),
 			'PIWIK_AVG_TIME_ON_SITE'		=> gmdate("H:i:s", $data['avg_time_on_site']),
 			'PIWIK_ACTIONS_PER_VISIT'		=> round($data['nb_actions_per_visit'], 2),
-            'PIWIK_TIME'                    => $config_text['piwik_time_index']
+            'PIWIK_TIME'                    => $this->config['piwik_time_index'],
 		));
 	}
 }

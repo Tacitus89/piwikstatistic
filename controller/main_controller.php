@@ -34,6 +34,12 @@ class main_controller
     /** @var \phpbb\cache\driver\driver_interface */
     protected $cache;
 
+    /** @var string phpBB root path */
+	protected $root_path;
+
+	/** @var string phpEx */
+	protected $php_ext;
+
 	/**
 	* Constructor
 	*
@@ -42,6 +48,8 @@ class main_controller
 	* @param \phpbb\template\template              $template        Template object
 	* @param \phpbb\user                           $user            User object
     * @param \phpbb\cache\driver\driver_interface  $cache           Cache object
+    * @param string                                $root_path       phpBB root path
+	* @param string                                $php_ext         phpEx
 	* @return \tacitus89\piwikstats\controller\admin_controller
 	* @access public
 	*/
@@ -50,7 +58,9 @@ class main_controller
                                 \phpbb\controller\helper $helper,
                                 \phpbb\template\template $template,
                                 \phpbb\user $user,
-                                \phpbb\cache\driver\driver_interface $cache)
+                                \phpbb\cache\driver\driver_interface $cache,
+                                $root_path,
+                                $php_ext)
 	{
 		$this->config = $config;
 		$this->config_text = $config_text;
@@ -58,6 +68,8 @@ class main_controller
 		$this->template = $template;
 		$this->user = $user;
         $this->cache = $cache;
+        $this->root_path = $root_path;
+		$this->php_ext = $php_ext;
 	}
 
 	/**
@@ -68,6 +80,12 @@ class main_controller
 	*/
 	public function display()
 	{
+        // When PiwikStats-Extension or PiwikStats-Site are disabled, redirect users back to the forum index
+		if (empty($this->config['piwikstats_active']) || empty($this->config['piwik_stats_active']))
+		{
+			redirect(append_sid("{$this->root_path}index.{$this->php_ext}"));
+		}
+
         // Add the piwikstats ACP lang file
         $this->user->add_lang_ext('tacitus89/piwikstats', 'piwikstats');
 
@@ -119,7 +137,7 @@ class main_controller
         }
 
 		$this->template->assign_vars(array(
-            'PIWIK_TIME'                => $configText['piwik_time'],
+            'PIWIK_TIME'                => $this->config['piwik_time'],
 		));
 
 		// Send all data to the template file
@@ -136,7 +154,7 @@ class main_controller
     {
         $url = $config_text['piwik_url']."/index.php?module=API&method=ImageGraph.get"
             . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=$module&apiAction=$action"
-            . "&period=$period&date=last". $config_text['piwik_time']
+            . "&period=$period&date=last". $this->config['piwik_time']
             . "&token_auth=". $config_text['piwik_token']
             . "&format=php&height=200&width=500&graphType=$graphType";
 
@@ -156,7 +174,7 @@ class main_controller
 			'piwik_url',
 			'piwik_token',
 			'piwik_site_id',
-            'piwik_time',
+            'piwik_cache',
 		));
     }
 
@@ -184,7 +202,7 @@ class main_controller
                 $image = $this->getPiwikImage($configText, $stats['module'], $stats['action'], $stats['graphType']);
             }
 
-            $this->cache->put($cacheName, $image);
+            $this->cache->put($cacheName, $image, $configText['piwik_cache']);
         }
 
         return $image;
