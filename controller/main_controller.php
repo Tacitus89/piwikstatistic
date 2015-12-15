@@ -112,21 +112,25 @@ class main_controller
                 'module'    => 'VisitTime',
                 'action'    => 'getVisitInformationPerServerTime',
                 'graphType' => 'verticalBar',
+                'period'    => 'range',
             ),
             array(
                 'module'    => 'VisitTime',
                 'action'    => 'getByDayOfWeek',
                 'graphType' => 'verticalBar',
+                'period'    => 'range',
             ),
             array(
                 'module'    => 'DevicesDetection',
                 'action'    => 'getBrowsers',
                 'graphType' => 'horizontalBar',
+                'period'    => 'range',
             ),
             array(
                 'module'    => 'UserCountry',
                 'action'    => 'getCountry',
                 'graphType' => 'horizontalBar',
+                'period'    => 'range',
             ),
         );
 
@@ -150,7 +154,7 @@ class main_controller
 	* @return array
 	* @access private
 	*/
-    private function getPiwikImage($config_text, $module, $action, $graphType= "evolution", $period = "range")
+    private function getPiwikImage($config_text, $module, $action, $graphType, $period)
     {
         $url = $config_text['piwik_url']."/index.php?module=API&method=ImageGraph.get"
             . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=$module&apiAction=$action"
@@ -188,19 +192,12 @@ class main_controller
 	*/
     private function getImage($configText, $stats)
     {
-        $cacheName = $stats['module'] . '_' . $stats['action'];
+        $cacheName = $stats['module'] . '_' . $stats['action'] . '_' . $stats['period'];
         $image = $this->cache->get($cacheName);
 
         if ($image === false)
         {
-            if(isset($stats['period']))
-            {
-                $image = $this->getPiwikImage($configText, $stats['module'], $stats['action'], $stats['graphType'], $stats['period']);
-            }
-            else
-            {
-                $image = $this->getPiwikImage($configText, $stats['module'], $stats['action'], $stats['graphType']);
-            }
+            $image = $this->getPiwikImage($configText, $stats['module'], $stats['action'], $stats['graphType'], $stats['period']);
 
             $this->cache->put($cacheName, $image, $configText['piwik_cache']);
         }
