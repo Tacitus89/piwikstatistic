@@ -47,12 +47,12 @@ $lang = array_merge($lang, array(
     'ACP_PIWIK_TIME'                    => 'Time period',
     'ACP_PIWIK_TIME_EXPLAIN'            => 'For the informations on Piwik Statistic Site',
     'ACP_PIWIK_CACHE'                   => 'Cache time for Piwik Statistics',
-    'ACP_PIWIK_CACHE_EXPLAIN'           => 'Time in seconds. Default: 86400 (1 day)<br />Set to 0 to deactivated cache.',
+    'ACP_PIWIK_CACHE_EXPLAIN'           => 'Time in seconds. Default: 86400 (1 day)',
     'ACP_PIWIK_STATS_INDEX_ACTIVATE'    => 'Piwik Statistic Activated on Index',
     'ACP_PIWIK_TIME_INDEX'              => 'Time period on Index',
     'ACP_PIWIK_TIME_INDEX_EXPLAIN'      => 'For the informations on Index',
     'ACP_PIWIK_CACHE_INDEX'             => 'Cache time for Piwik Statistics on Index',
-    'ACP_PIWIK_CACHE_INDEX_EXPLAIN'     => 'Time in seconds. Default: 21600 (6 hours)<br />Set to 0 to deactivated cache.',
+    'ACP_PIWIK_CACHE_INDEX_EXPLAIN'     => 'Time in seconds. Default: 21600 (6 hours)',
     'ACP_PIWIK_CODE'				    => 'Piwik Tracking-Code',
     'ACP_PIWIKSTATS_SETTINGS_SAVED'     => 'Settings are saved.'
 ));
