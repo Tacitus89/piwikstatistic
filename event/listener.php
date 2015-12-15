@@ -31,24 +31,34 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\user */
 	protected $user;
 
+    /** @var \phpbb\cache\driver\driver_interface */
+    protected $cache;
+
 	/**
 	* Constructor
 	*
-	* @param \phpbb\config\config        $config             Config object
-	* @param \phpbb\config\db_text       $config_text        DB text object
-	* @param \phpbb\controller\helper    $helper  					 Controller helper object
-	* @param \phpbb\template\template    $template           Template object
-	* @param \phpbb\user                 $user               User object
+	* @param \phpbb\config\config                  $config         Config object
+	* @param \phpbb\config\db_text                 $config_text    DB text object
+	* @param \phpbb\controller\helper              $helper         Controller helper object
+	* @param \phpbb\template\template              $template       Template object
+	* @param \phpbb\user                           $user           User object
+    * @param \phpbb\cache\driver\driver_interface  $cache          Cache object
 	* @return \phpbb\piwikstats\event\listener
 	* @access public
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\config\db_text $config_text, \phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(\phpbb\config\config $config,
+                                \phpbb\config\db_text $config_text,
+                                \phpbb\controller\helper $helper,
+                                \phpbb\template\template $template,
+                                \phpbb\user $user,
+                                \phpbb\cache\driver\driver_interface $cache)
 	{
 		$this->config = $config;
 		$this->config_text = $config_text;
 		$this->helper = $helper;
 		$this->template = $template;
 		$this->user = $user;
+        $this->cache = $cache;
 	}
 
 	/**
@@ -89,43 +99,53 @@ class listener implements EventSubscriberInterface
 	* @access public
 	*/
 	public function add_on_index($event)
-	{
-    //Is it activated?
-    if ((!empty($this->config['piwik_stats_index_active'])) == false || (!empty($this->config['piwik_ext_active'])) == false)
+    {
+        //Is it activated?
+        if ((!empty($this->config['piwik_stats_index_active'])) == false || (!empty($this->config['piwik_ext_active'])) == false)
 		{
 			return;
 		}
 
-    // Get piwikstats data from the config_text object
-		$config_text = $this->config_text->get_array(array(
-			'piwik_url',
-			'piwik_token',
-			'piwik_site_id',
-			'piwik_time_index'
-		));
+        // Get piwikstats data from the config_text object
+        $config_text = $this->config_text->get_array(array(
+            'piwik_url',
+            'piwik_token',
+            'piwik_site_id',
+            'piwik_time_index'
+        ));
 
-		//url to piwik
-		$url = $config_text['piwik_url']."/index.php?module=API&method=VisitsSummary.get"
-		  . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=VisitsSummary&apiAction=get"
-		  . "&period=range&date=last". $config_text['piwik_time_index']
-		  . "&token_auth=". $config_text['piwik_token']
-		  . "&format=php";
+        //Get the data from Cache
+        $data = $this->cache->get('piwik_stats_index');
 
-    //unserialize the data
-		$data = unserialize(file_get_contents($url));
+        //No Data in the Cache
+        if($data === false)
+        {
+    		//url to piwik
+    		$url = $config_text['piwik_url']."/index.php?module=API&method=VisitsSummary.get"
+    		  . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=VisitsSummary&apiAction=get"
+    		  . "&period=range&date=last". $config_text['piwik_time_index']
+    		  . "&token_auth=". $config_text['piwik_token']
+    		  . "&format=php";
 
-		// Add piwikstats language file
-		$this->user->add_lang_ext('tacitus89/piwikstats', 'piwikstats');
+            $data = file_get_contents($url);
+            $this->cache->put('piwik_stats_index', $data);
+        }
+
+        //unserialize the data
+    	$data = unserialize(($data));
+
+    	// Add piwikstats language file
+    	$this->user->add_lang_ext('tacitus89/piwikstats', 'piwikstats');
 
 		// Output piwikstats to the template
 		$this->template->assign_vars(array(
 			'S_PIWIK_STATS_INDEX_ACTIVATE'	=> (!empty($this->config['piwik_stats_index_active'])) ? true : false,
-			'PIWIK_STATS_URL'								=> $this->helper->route('tacitus89_piwikstats_main_controller'),
-			'PIWIK_VISITORS' 								=> number_format($data['nb_visits'], 0, ',', '.'),
-			'PIWIK_ACTIONS'									=> number_format($data['nb_actions'], 0, ',', '.'),
-			'PIWIK_AVG_TIME_ON_SITE'				=> gmdate("H:i:s", $data['avg_time_on_site']),
-			'PIWIK_ACTIONS_PER_VISIT'				=> round($data['nb_actions_per_visit'], 2),
-      'PIWIK_TIME'                    => $config_text['piwik_time_index']
+			'PIWIK_STATS_URL'				=> $this->helper->route('tacitus89_piwikstats_main_controller'),
+			'PIWIK_VISITORS' 				=> number_format($data['nb_visits'], 0, ',', '.'),
+			'PIWIK_ACTIONS'					=> number_format($data['nb_actions'], 0, ',', '.'),
+			'PIWIK_AVG_TIME_ON_SITE'		=> gmdate("H:i:s", $data['avg_time_on_site']),
+			'PIWIK_ACTIONS_PER_VISIT'		=> round($data['nb_actions_per_visit'], 2),
+            'PIWIK_TIME'                    => $config_text['piwik_time_index']
 		));
 	}
 }
