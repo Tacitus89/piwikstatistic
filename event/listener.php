@@ -127,12 +127,26 @@ class listener implements EventSubscriberInterface
     		  . "&token_auth=". $config_text['piwik_token']
     		  . "&format=php";
 
-            $data = file_get_contents($url);
+            //get the data from piwik
+            $data = @file_get_contents($url);
+
+            //Is it a correct url?
+            if($data === false)
+            {
+                return;
+            }
+
             $this->cache->put('piwik_stats_index', $data, $config_text['piwik_cache_index']);
         }
 
         //unserialize the data
-    	$data = unserialize(($data));
+    	$test = @unserialize($data);
+
+        //Is there serialized data?
+        if($test === false)
+        {
+            return;
+        }
 
     	// Add piwikstats language file
     	$this->user->add_lang_ext('tacitus89/piwikstats', 'piwikstats');

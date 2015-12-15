@@ -162,7 +162,15 @@ class main_controller
             . "&token_auth=". $config_text['piwik_token']
             . "&format=php&height=200&width=500&graphType=$graphType";
 
-        return file_get_contents($url);
+        $data = @file_get_contents($url);
+
+        //Is it a correct url?
+        if($data === false)
+        {
+            return;
+        }
+
+        return $data;
     }
 
     /**
