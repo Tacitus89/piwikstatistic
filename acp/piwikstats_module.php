@@ -66,7 +66,7 @@ class piwikstats_module
 				// Set the options
 				$this->config->set('piwik_ext_active', $this->request->variable('piwik_ext_active', 1));
 				$this->config->set('piwik_stats_active', $this->request->variable('piwik_stats_active', 1));
-                $this->config_text->set('piwik_url', $this->request->variable('piwik_url', ''));
+                $this->config_text->set('piwik_url', rtrim($this->request->variable('piwik_url', ''), '/'));
 				$this->config_text->set('piwik_token', $this->request->variable('piwik_token', ''));
                 $this->config_text->set('piwik_site_id', $this->request->variable('piwik_site_id', ''));
                 $this->config->set('piwik_time', $this->request->variable('piwik_time', 0));

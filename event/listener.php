@@ -140,10 +140,10 @@ class listener implements EventSubscriberInterface
         }
 
         //unserialize the data
-    	$test = @unserialize($data);
+    	$data = @unserialize($data);
 
-        //Is there serialized data?
-        if($test === false)
+        //Is there serialized data or get we an error from piwik?
+        if($data === false|| $data['result'] === 'error')
         {
             return;
         }
