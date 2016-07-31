@@ -81,7 +81,7 @@ class piwikstats_module
 				$this->config->set('piwik_stats_index_active', $this->request->variable('piwik_stats_index_active', 1));
                 $this->config->set('piwik_time_index', $this->request->variable('piwik_time_index', 0));
                 $this->config_text->set('piwik_cache_index', $cacheTimeIndex);
-				$this->config_text->set('piwik_code', $this->request->variable('piwik_code', ''));
+				$this->config_text->set('piwik_code', $this->request->variable('piwik_code', '', true));
 
 				// Add option settings change action to the admin log
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'ACP_PIWIKSTATS_SETTINGS_LOG');

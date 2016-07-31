@@ -33,6 +33,26 @@ class listener implements EventSubscriberInterface
 
     /** @var \phpbb\cache\driver\driver_interface */
     protected $cache;
+	
+	/** @var string */
+	private $piwik_code = '
+<!-- Piwik -->
+<script type="text/javascript">
+	var _paq = _paq || [];
+	_paq.push(["setDomains", ["*.www.strategie-zone.de"]]);
+	{OPTIONS}
+	_paq.push([\'trackPageView\']);
+	_paq.push([\'enableLinkTracking\']);
+	(function() {
+		var u="//{PIWIK_URL}/";
+		_paq.push([\'setTrackerUrl\', u+\'piwik.php\']);
+		_paq.push([\'setSiteId\', {SITE_ID}]);
+		var d=document, g=d.createElement(\'script\'), s=d.getElementsByTagName(\'script\')[0];
+		g.type=\'text/javascript\'; g.async=true; g.defer=true; g.src=u+\'piwik.js\'; s.parentNode.insertBefore(g,s);
+	})();
+</script>
+<noscript><p><img src="//{PIWIK_URL}/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->';
 
 	/**
 	* Constructor
@@ -71,7 +91,7 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.page_footer'							=> 'page_footer',
+			'core.page_footer'				=> 'page_footer',
 			'core.index_modify_page_title'	=> 'add_on_index',
 		);
 	}
@@ -85,10 +105,47 @@ class listener implements EventSubscriberInterface
 	*/
 	public function page_footer($event)
 	{
+		$start = microtime();
+		//Is it activated?
+		if ((!empty($this->config['piwik_ext_active'])) == false)
+		{
+			return;
+		}
+		
+		// Get piwikstats data from the config_text object
+		$config_text = $this->config_text->get_array(array(
+			'piwik_code',
+			'piwik_url',
+			'piwik_site_id',
+		));
+		
+		$user_id = $this->user->data['user_id'];
+		
+		$options = '';
+		if($user_id > 1)
+		{
+			$options = '_paq.push([\'setUserId\', '. $user_id .'])'."\n";
+			$options .= '	_paq.push([\'setCustomVariable\', 1, "VisitorType", "Member", "visit"])';
+		}
+		else
+		{
+			$options = '_paq.push([\'setCustomVariable\', 1, "VisitorType", "Guest", "visit"])/n';
+		}
+		
+		//Replace PiwikURL
+		$piwik_code = str_replace('{PIWIK_URL}', $config_text['piwik_url'], $config_text['piwik_code']);
+		//Replace SiteID
+		$piwik_code = str_replace('{SITE_ID}', $config_text['piwik_site_id'], $piwik_code);
+		//Replace Options
+		$piwik_code = str_replace('{OPTIONS}', $options, $piwik_code);
+		
 		$this->template->assign_vars(array(
 			'S_PIWIK_EXT_ACTIVE'	=> (!empty($this->config['piwik_ext_active'])) ? true : false,
-			'PIWIK_CODE' 					=> $this->config_text->get('piwik_code'),
+			'PIWIK_CODE'			=> htmlspecialchars_decode($piwik_code, ENT_COMPAT),
 		));
+		$end = microtime();
+		$laufzeit = $end-$start;
+		echo $laufzeit;
 	}
 
 	/**
@@ -114,18 +171,18 @@ class listener implements EventSubscriberInterface
         {
             // Get piwikstats data from the config_text object
             $config_text = $this->config_text->get_array(array(
-                'piwik_url',
-                'piwik_token',
-                'piwik_site_id',
-                'piwik_cache_index'
+				'piwik_url',
+				'piwik_token',
+				'piwik_site_id',
+				'piwik_cache_index'
             ));
 
     		//url to piwik
-    		$url = $config_text['piwik_url']."/index.php?module=API&method=VisitsSummary.get"
-    		  . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=VisitsSummary&apiAction=get"
-    		  . "&period=range&date=last". $this->config['piwik_time_index']
-    		  . "&token_auth=". $config_text['piwik_token']
-    		  . "&format=php";
+    		$url = $config_text['piwik_url'] .'/index.php?module=API&method=VisitsSummary.get'
+				. '&idSite='. $config_text['piwik_site_id'] .'&apiModule=VisitsSummary&apiAction=get'
+				. '&period=range&date=last'. $this->config['piwik_time_index']
+				. '&token_auth='. $config_text['piwik_token']
+				. '&format=php';
 
             //get the data from piwik
             $data = @file_get_contents($url);

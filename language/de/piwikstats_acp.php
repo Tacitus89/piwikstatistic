@@ -55,7 +55,7 @@ $lang = array_merge($lang, array(
     'ACP_PIWIK_CACHE_INDEX'             => 'Zeitdauer für Piwik Statistiken im Cache auf dem Index',
     'ACP_PIWIK_CACHE_INDEX_EXPLAIN'     => 'Zeit in Sekunden. Standard: 21600 (6 Stunden)',
 	'ACP_PIWIK_CODE'                    => 'Piwik Tracking-Code',
-    'ACP_PIWIKSTATS_SETTINGS_SAVED'     => 'Einstellungen sind gespiechert.'
+    'ACP_PIWIKSTATS_SETTINGS_SAVED'     => 'Einstellungen sind gespiechert.',
 
     //errors
     'ACP_PIWIK_CACHE_TOO_HIGH'          => 'Die Zeitdauer für den Cache ist zu hoch.',
