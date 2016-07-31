@@ -105,7 +105,6 @@ class listener implements EventSubscriberInterface
 	*/
 	public function page_footer($event)
 	{
-		$start = microtime();
 		//Is it activated?
 		if ((!empty($this->config['piwik_ext_active'])) == false)
 		{
@@ -143,9 +142,6 @@ class listener implements EventSubscriberInterface
 			'S_PIWIK_EXT_ACTIVE'	=> (!empty($this->config['piwik_ext_active'])) ? true : false,
 			'PIWIK_CODE'			=> htmlspecialchars_decode($piwik_code, ENT_COMPAT),
 		));
-		$end = microtime();
-		$laufzeit = $end-$start;
-		echo $laufzeit;
 	}
 
 	/**
