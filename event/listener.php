@@ -124,11 +124,11 @@ class listener implements EventSubscriberInterface
 		if($user_id > 1)
 		{
 			$options = '_paq.push([\'setUserId\', '. $user_id .'])'."\n";
-			$options .= '	_paq.push([\'setCustomVariable\', 1, "VisitorType", "Member", "visit"])';
+			//$options .= '	_paq.push([\'setCustomVariable\', 1, "VisitorType", "Member", "visit"])';
 		}
 		else
 		{
-			$options = '_paq.push([\'setCustomVariable\', 1, "VisitorType", "Guest", "visit"])/n';
+			//$options = '_paq.push([\'setCustomVariable\', 1, "VisitorType", "Guest", "visit"])/n';
 		}
 		
 		//Replace PiwikURL
