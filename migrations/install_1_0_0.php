@@ -10,9 +10,9 @@
 
 namespace tacitus89\piwikstats\migrations;
 
-class install_0_0_1 extends \phpbb\db\migration\migration
+class install_1_0_0 extends \phpbb\db\migration\migration
 {
-	var $piwikstats_version = '0.0.1';
+	var $piwikstats_version = '1.0.0';
 
 	public function effectively_installed()
 	{
@@ -30,18 +30,23 @@ class install_0_0_1 extends \phpbb\db\migration\migration
 			// Set the current version
 			array('config.add', array('piwikstats_version', $this->piwikstats_version)),
 			// All config
-			array('config.add', array('piwikstats_active', 0)),
-			array('config.add', array('piwik_stats_active', 1)),
-			array('config.add', array('piwik_stats_index_active', 1)),
-            array('config.add', array('piwik_time', 30)),
-            array('config.add', array('piwik_time_index', 7)),
+			array('config.add', array('piwik_ext_active', 0)),
+			array('config.add', array('piwik_url', '')),
+			array('config.add', array('piwik_site_id', '')),
+			array('config.add', array('piwik_accept_donottrack', 1)),
+			array('config.add', array('piwik_use_user_id', 0)),
+			array('config.add', array('piwik_set_title', 1)),
+			array('config.add', array('piwik_track_visitortype', 0)),
+			array('config.add', array('piwik_search', 1)),
+			array('config.add', array('piwik_stats_page_active', 0)),
+			array('config.add', array('piwik_stats_index_active', 0)),
 			// config_text
-            array('config_text.add', array('piwik_url', '')),
             array('config_text.add', array('piwik_token', '')),
-            array('config_text.add', array('piwik_site_id', '')),
-            array('config_text.add', array('piwik_cache', 86400)),
-            array('config_text.add', array('piwik_cache_index', 21600)),
-            array('config_text.add', array('piwik_code', '')),
+            array('config_text.add', array('piwik_time_page', 30)),
+            array('config_text.add', array('piwik_time_index', 7)),
+            array('config_text.add', array('piwik_cache_page', 86400)),
+            array('config_text.add', array('piwik_cache_index', 10800)),
+            
 
 			//Set ACP Module
 			array('module.add', array('acp', 'ACP_CAT_DOT_MODS', 'ACP_PIWIK_INDEX')),

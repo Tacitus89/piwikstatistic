@@ -23,21 +23,51 @@
 					<label><input type="radio" class="radio" name="piwik_ext_active" value="0"<!-- IF not S_PIWIK_EXT_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 				</dd>
 			</dl>
-		</fieldset>
-
-		<fieldset>
-			<legend>{L_ACP_PIWIK_STATS_SETTINGS}</legend>
 			<dl>
-				<dt><label for="piwik_stats_active">{L_ACP_PIWIK_STATS_ACTIVATE}</label></dt>
-				<dd>
-					<label><input type="radio" class="radio" id="piwik_stats_active" name="piwik_stats_active" value="1"<!-- IF S_PIWIK_STATS_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
-					<label><input type="radio" class="radio" name="piwik_stats_active" value="0"<!-- IF not S_PIWIK_STATS_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
-				</dd>
-			</dl>
-            <dl>
 				<dt><label for="piwik_url">{L_ACP_PIWIK_URL}</label><br /><span>{L_ACP_PIWIK_URL_EXPLAIN}</span></dt>
 				<dd>
 					<input name="piwik_url" size="32" maxlength="64" value="{PIWIK_URL}" type="text">
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="piwik_site_id">{L_ACP_PIWIK_SITE_ID}</label><br /><span>{L_ACP_PIWIK_SITE_ID_EXPLAIN}</span></dt>
+				<dd>
+					<input name="piwik_site_id" size="16" maxlength="16" value="{PIWIK_SITE_ID}" type="text">
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="piwik_accept_donottrack">{L_ACP_PIWIK_ACCEPT_DONOTTRACK}</label></dt>
+				<dd>
+					<label><input type="radio" class="radio" id="piwik_accept_donottrack" name="piwik_accept_donottrack" value="1"<!-- IF S_PIWIK_ACCEPT_DONOTTRACK --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="piwik_accept_donottrack" value="0"<!-- IF not S_PIWIK_ACCEPT_DONOTTRACK --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="piwik_use_user_id">{L_ACP_PIWIK_USER_ID}</label><br /><span>{L_ACP_PIWIK_USER_ID_EXPLAIN}</span></dt>
+				<dd>
+					<label><input type="radio" class="radio" id="piwik_use_user_id" name="piwik_use_user_id" value="1"<!-- IF S_PIWIK_USER_ID --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="piwik_use_user_id" value="0"<!-- IF not S_PIWIK_USER_ID --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="piwik_set_title">{L_ACP_PIWIK_SET_TITLE}</label><br /><span>{L_ACP_PIWIK_SET_TITLE_EXPLAIN}</span></dt>
+				<dd>
+					<label><input type="radio" class="radio" id="piwik_set_title" name="piwik_set_title" value="1"<!-- IF S_PIWIK_SET_TITLE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="piwik_set_title" value="0"<!-- IF not S_PIWIK_SET_TITLE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="piwik_track_visitortype">{L_ACP_PIWIK_TRACK_VISITORTYPE}</label><br /><span>{L_ACP_PIWIK_TRACK_VISITORTYPE_EXPLAIN}</span></dt>
+				<dd>
+					<label><input type="radio" class="radio" id="piwik_track_visitortype" name="piwik_track_visitortype" value="1"<!-- IF S_PIWIK_TRACK_VISITORTYPE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="piwik_track_visitortype" value="0"<!-- IF not S_PIWIK_TRACK_VISITORTYPE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><label for="piwik_search">{L_ACP_PIWIK_SEARCH}</label><br /><span>{L_ACP_PIWIK_SEARCH_EXPLAIN}</span></dt>
+				<dd>
+					<label><input type="radio" class="radio" id="piwik_search" name="piwik_search" value="1"<!-- IF S_PIWIK_SEARCH --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="piwik_search" value="0"<!-- IF not S_PIWIK_SEARCH --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 				</dd>
 			</dl>
 			<dl>
@@ -46,22 +76,27 @@
 					<input name="piwik_token" size="32" maxlength="32" value="{PIWIK_TOKEN}" type="text">
 				</dd>
 			</dl>
-            <dl>
-				<dt><label for="piwik_site_id">{L_ACP_PIWIK_SITE_ID}</label><br /><span>{L_ACP_PIWIK_SITE_ID_EXPLAIN}</span></dt>
+		</fieldset>
+
+		<fieldset>
+			<legend>{L_ACP_PIWIK_STATS_PAGE_SETTINGS}</legend>
+			<dl>
+				<dt><label for="piwik_stats_page_active">{L_ACP_PIWIK_STATS_PAGE_ACTIVATE}</label></dt>
 				<dd>
-					<input name="piwik_site_id" size="16" maxlength="16" value="{PIWIK_SITE_ID}" type="text">
+					<label><input type="radio" class="radio" id="piwik_stats_page_active" name="piwik_stats_page_active" value="1"<!-- IF S_PIWIK_STATS_PAGE_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_YES}</label>
+					<label><input type="radio" class="radio" name="piwik_stats_page_active" value="0"<!-- IF not S_PIWIK_STATS_PAGE_ACTIVE --> checked="checked"<!-- ENDIF --> /> {L_NO}</label>
 				</dd>
 			</dl>
             <dl>
-				<dt><label for="piwik_time">{L_ACP_PIWIK_TIME}</label><br /><span>{L_ACP_PIWIK_TIME_EXPLAIN}</span></dt>
+				<dt><label for="piwik_time_page">{L_ACP_PIWIK_TIME_PAGE}</label><br /><span>{L_ACP_PIWIK_TIME_PAGE_EXPLAIN}</span></dt>
 				<dd>
-					<input name="piwik_time" size="3" maxlength="3" value="{PIWIK_TIME}" type="text">
+					<input name="piwik_time_page" size="3" maxlength="3" value="{PIWIK_TIME_PAGE}" type="text">
 				</dd>
 			</dl>
             <dl>
-				<dt><label for="piwik_cache">{L_ACP_PIWIK_CACHE}</label><br /><span>{L_ACP_PIWIK_CACHE_EXPLAIN}</span></dt>
+				<dt><label for="piwik_cache_page">{L_ACP_PIWIK_CACHE_PAGE}</label><br /><span>{L_ACP_PIWIK_CACHE_PAGE_EXPLAIN}</span></dt>
 				<dd>
-					<input name="piwik_cache" size="7" maxlength="7" value="{PIWIK_CACHE}" type="text">
+					<input name="piwik_cache_page" size="7" maxlength="7" value="{PIWIK_CACHE_PAGE}" type="text">
 				</dd>
 			</dl>
         </fieldset>
@@ -84,16 +119,6 @@
 				<dt><label for="piwik_cache_index">{L_ACP_PIWIK_CACHE_INDEX}</label><br /><span>{L_ACP_PIWIK_CACHE_INDEX_EXPLAIN}</span></dt>
 				<dd>
 					<input name="piwik_cache_index" size="7" maxlength="7" value="{PIWIK_CACHE_INDEX}" type="text">
-				</dd>
-			</dl>
-		</fieldset>
-
-		<fieldset>
-			<legend>{L_ACP_PIWIK_SETTINGS}</legend>
-			<dl>
-				<dt><label for="piwik_code">{L_ACP_PIWIK_CODE}</label></dt>
-				<dd>
-					<textarea name="piwik_code" rows="10" cols="40">{PIWIK_CODE}</textarea>
 				</dd>
 			</dl>
 		</fieldset>

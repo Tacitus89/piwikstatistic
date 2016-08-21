@@ -80,8 +80,8 @@ class main_controller
 	*/
 	public function display()
 	{
-        // When PiwikStats-Extension or PiwikStats-Site are disabled, redirect users back to the forum index
-		if (empty($this->config['piwikstats_active']) || empty($this->config['piwik_stats_active']))
+        // When PiwikStats-Site are disabled, redirect users back to the forum index
+		if ((!empty($this->config['piwik_stats_page_active'])) == false)
 		{
 			redirect(append_sid("{$this->root_path}index.{$this->php_ext}"));
 		}
@@ -93,7 +93,7 @@ class main_controller
 		$this->page_title = $this->user->lang('L_PIWIK_STATS');
 
         //get the config text data for piwikstats
-        $configText = $this->getConfigText();
+        $config_text = $this->getConfigText();
 
         $piwikData = array(
             array(
@@ -136,12 +136,12 @@ class main_controller
 
         foreach ($piwikData as $key => $data) {
             $this->template->assign_vars(array(
-                'PIWIK_'.$key    => base64_encode($this->getImage($configText, $data)),
+                'PIWIK_'.$key    => base64_encode($this->getImage($config_text, $data)),
     		));
         }
 
 		$this->template->assign_vars(array(
-            'PIWIK_TIME'                => $this->config['piwik_time'],
+            'PIWIK_TIME'                => $config_text['piwik_time_page'],
 		));
 
 		// Send all data to the template file
@@ -156,9 +156,9 @@ class main_controller
 	*/
     private function getPiwikImage($config_text, $module, $action, $graphType, $period)
     {
-        $url = $config_text['piwik_url']."/index.php?module=API&method=ImageGraph.get"
-            . "&idSite=". $config_text['piwik_site_id'] ."&apiModule=$module&apiAction=$action"
-            . "&period=$period&date=last". $this->config['piwik_time']
+        $url = $this->config['piwik_url']."/index.php?module=API&method=ImageGraph.get"
+            . "&idSite=". $this->config['piwik_site_id'] ."&apiModule=$module&apiAction=$action"
+            . "&period=$period&date=last". $config_text['piwik_time_page']
             . "&token_auth=". $config_text['piwik_token']
             . "&format=php&height=200&width=500&graphType=$graphType";
 
@@ -183,10 +183,9 @@ class main_controller
     {
         // Get piwikstats data from the config_text object
 		return $this->config_text->get_array(array(
-			'piwik_url',
 			'piwik_token',
-			'piwik_site_id',
-            'piwik_cache',
+            'piwik_cache_page',
+			'piwik_time_page',
 		));
     }
 
@@ -207,7 +206,7 @@ class main_controller
         {
             $image = $this->getPiwikImage($configText, $stats['module'], $stats['action'], $stats['graphType'], $stats['period']);
 
-            $this->cache->put($cacheName, $image, $configText['piwik_cache']);
+            $this->cache->put($cacheName, $image, $configText['piwik_cache_page']);
         }
 
         return $image;

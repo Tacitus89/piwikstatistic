@@ -1,3 +1,31 @@
 <!-- IF S_PIWIK_EXT_ACTIVE -->
-	{PIWIK_CODE}
+<!-- Piwik -->
+<script type="text/javascript">
+	var _paq = _paq || [];
+	<!-- IF S_PIWIK_ACCEPT_DONOTTRACK -->_paq.push(["setDoNotTrack", true]);<!-- ENDIF --> 
+	<!-- IF S_PIWIK_USER_ID and S_REGISTERED_USER -->_paq.push(['setUserId', '{USER_ID}']);<!-- ENDIF --> 
+	<!-- IF S_PIWIK_SET_TITLE -->
+		<!-- IF .navlinks -->_paq.push(['setDocumentTitle', "<!-- IF SCRIPT_PATH -->{SCRIPT_PATH}/<!-- ENDIF --><!-- IF SCRIPT_NAME == 'viewforum' or SCRIPT_NAME == 'viewtopic' -->{L_INDEX}/<!-- ENDIF --><!-- BEGIN navlinks --><!-- IF not navlinks.S_FIRST_ROW -->/<!-- ENDIF -->{navlinks.FORUM_NAME}<!-- END navlinks --><!-- IF TOPIC_TITLE -->/{TOPIC_TITLE}<!-- ENDIF -->"]);
+		<!-- ELSEIF S_IN_UCP -->_paq.push(['setDocumentTitle', "<!-- IF SCRIPT_PATH -->{SCRIPT_PATH}/<!-- ENDIF -->{L_UCP}/{PAGE_TITLE}"]);
+		<!-- ELSEIF S_IN_MCP -->_paq.push(['setDocumentTitle', "<!-- IF SCRIPT_PATH -->{SCRIPT_PATH}/<!-- ENDIF -->{L_MCP}/{PAGE_TITLE}"]); 
+		<!-- ELSE -->_paq.push(['setDocumentTitle', "<!-- IF SCRIPT_PATH -->{SCRIPT_PATH}/<!-- ENDIF -->{PAGE_TITLE}"]);<!-- ENDIF --> 
+	<!-- ENDIF -->
+	<!-- IF S_PIWIK_TRACK_VISITORTYPE -->
+		<!-- IF S_REGISTERED_USER -->_paq.push(['setCustomVariable', 1, "VisitorType", "Member", "visit"]);<!-- ELSE -->_paq.push(['setCustomVariable', 1, "VisitorType", "Guest", "visit"]);<!-- ENDIF -->  
+	<!-- ENDIF -->
+	<!-- IF S_PIWIK_SEARCH -->
+		<!-- IF SEARCH_TITLE or SEARCH_MATCHES -->_paq.push(['trackSiteSearch',"{SEARCH_WORDS}",false,<!-- IF TOTAL_MATCHES > 0 -->{TOTAL_MATCHES}<!-- ELSE -->0<!-- ENDIF -->]);<!-- ENDIF --> 
+	<!-- ENDIF -->
+	_paq.push(['trackPageView']);
+	_paq.push(['enableLinkTracking']);
+	(function() {
+		var u="{PIWIK_URL}/";
+		_paq.push(['setTrackerUrl', u+'piwik.php']);
+		_paq.push(['setSiteId', {PIWIK_SITE_ID}]);
+		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	})();
+</script>
+<noscript><p><img src="{PIWIK_URL}/piwik.php?idsite={PIWIK_SITE_ID}&rec=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
 <!-- ENDIF -->

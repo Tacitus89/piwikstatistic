@@ -60,7 +60,7 @@ class piwikstats_module
 				$errors[] = $this->user->lang('FORM_INVALID');
 			}
 
-            $cacheTime = $this->request->variable('piwik_cache', 0);
+            $cacheTime = $this->request->variable('piwik_cache_page', 0);
             $cacheTimeIndex = $this->request->variable('piwik_cache_index', 0);
             if($cacheTime > 2592000 || $cacheTimeIndex > 2592000)
             {
@@ -71,17 +71,24 @@ class piwikstats_module
 			if (empty($errors))
 			{
 				// Set the options
-				$this->config->set('piwik_ext_active', $this->request->variable('piwik_ext_active', 1));
-				$this->config->set('piwik_stats_active', $this->request->variable('piwik_stats_active', 1));
-                $this->config_text->set('piwik_url', rtrim($this->request->variable('piwik_url', ''), '/'));
-				$this->config_text->set('piwik_token', $this->request->variable('piwik_token', ''));
-                $this->config_text->set('piwik_site_id', $this->request->variable('piwik_site_id', 0));
-                $this->config->set('piwik_time', $this->request->variable('piwik_time', 0));
-                $this->config_text->set('piwik_cache', $cacheTime);
-				$this->config->set('piwik_stats_index_active', $this->request->variable('piwik_stats_index_active', 1));
-                $this->config->set('piwik_time_index', $this->request->variable('piwik_time_index', 0));
+				$this->config->set('piwik_ext_active', $this->request->variable('piwik_ext_active', 0));
+                $this->config->set('piwik_url', rtrim($this->request->variable('piwik_url', '', true), '/'));
+				$this->config->set('piwik_site_id', $this->request->variable('piwik_site_id', 0));
+				$this->config->set('piwik_accept_donottrack', $this->request->variable('piwik_accept_donottrack', 0));
+				$this->config->set('piwik_use_user_id', $this->request->variable('piwik_use_user_id', 0));
+				$this->config->set('piwik_set_title', $this->request->variable('piwik_set_title', 0));
+				$this->config->set('piwik_track_visitortype', $this->request->variable('piwik_track_visitortype', 0));
+				$this->config->set('piwik_search', $this->request->variable('piwik_search', 0));
+				$this->config_text->set('piwik_token', $this->request->variable('piwik_token', '', true));
+				//Set stats_page
+				$this->config->set('piwik_stats_page_active', $this->request->variable('piwik_stats_page_active', 0));
+                $this->config_text->set('piwik_time_page', $this->request->variable('piwik_time_page', 0));
+                $this->config_text->set('piwik_cache_page', $cacheTime);
+				//Set stats_index
+				$this->config->set('piwik_stats_index_active', $this->request->variable('piwik_stats_index_active', 0));
+                $this->config_text->set('piwik_time_index', $this->request->variable('piwik_time_index', 0));
                 $this->config_text->set('piwik_cache_index', $cacheTimeIndex);
-				$this->config_text->set('piwik_code', $this->request->variable('piwik_code', '', true));
+				
 
 				// Add option settings change action to the admin log
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'ACP_PIWIKSTATS_SETTINGS_LOG');
@@ -94,12 +101,11 @@ class piwikstats_module
 
         // Get piwikstats data from the config_text object
 		$config_text = $this->config_text->get_array(array(
-			'piwik_url',
 			'piwik_token',
-			'piwik_site_id',
-            'piwik_cache',
+            'piwik_cache_page',
+			'piwik_time_page',
             'piwik_cache_index',
-			'piwik_code',
+			'piwik_time_index',
 		));
 
 		// Set output vars for display in the template
@@ -110,16 +116,23 @@ class piwikstats_module
 			'U_ACTION'		=> $this->u_action,
 
 			'S_PIWIK_EXT_ACTIVE'			=> $this->config['piwik_ext_active'] ? true : false,
-			'S_PIWIK_STATS_ACTIVE'			=> $this->config['piwik_stats_active'] ? true : false,
-            'PIWIK_URL'						=> $config_text['piwik_url'],
+            'PIWIK_URL'						=> $this->config['piwik_url'],
+            'PIWIK_SITE_ID'			        => $this->config['piwik_site_id'],
+			'S_PIWIK_ACCEPT_DONOTTRACK'		=> $this->config['piwik_accept_donottrack'] ? true : false,
+			'S_PIWIK_USER_ID'				=> $this->config['piwik_use_user_id'] ? true : false,
+			'S_PIWIK_SET_TITLE'				=> $this->config['piwik_set_title'] ? true : false,
+			'S_PIWIK_TRACK_VISITORTYPE'		=> $this->config['piwik_track_visitortype'] ? true : false,
+			'S_PIWIK_SEARCH'				=> $this->config['piwik_search'] ? true : false,
 			'PIWIK_TOKEN'					=> $config_text['piwik_token'],
-            'PIWIK_SITE_ID'			        => $config_text['piwik_site_id'],
-            'PIWIK_TIME'			       	=> $this->config['piwik_time'],
-            'PIWIK_CACHE'			        => $config_text['piwik_cache'],
+			//Page
+			'S_PIWIK_STATS_PAGE_ACTIVE'		=> $this->config['piwik_stats_page_active'] ? true : false,
+            'PIWIK_TIME_PAGE'		       	=> $config_text['piwik_time_page'],
+            'PIWIK_CACHE_PAGE'		        => $config_text['piwik_cache_page'],
+			//Index
 			'S_PIWIK_STATS_INDEX_ACTIVE'	=> $this->config['piwik_stats_index_active'] ? true : false,
-            'PIWIK_TIME_INDEX'				=> $this->config['piwik_time_index'],
+            'PIWIK_TIME_INDEX'				=> $config_text['piwik_time_index'],
             'PIWIK_CACHE_INDEX'			    => $config_text['piwik_cache_index'],
-			'PIWIK_CODE'					=> $config_text['piwik_code'],
+			
 		));
 
 		// Load a template from adm/style for our ACP page
