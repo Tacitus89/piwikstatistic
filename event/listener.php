@@ -91,7 +91,7 @@ class listener implements EventSubscriberInterface
 		{
 			return;
 		}
-		
+
 		$this->template->assign_vars(array(
 			'S_PIWIK_EXT_ACTIVE'			=> $this->config['piwik_ext_active'] ? true : false,
             'PIWIK_URL'						=> $this->config['piwik_url'],
@@ -120,7 +120,7 @@ class listener implements EventSubscriberInterface
 		{
 			return;
 		}
-		
+
 		// Get piwikstats data from the config_text object
 		$config_text = $this->config_text->get_array(array(
 			'piwik_token',
@@ -129,7 +129,7 @@ class listener implements EventSubscriberInterface
 		));
 
         //Get the data from Cache
-        $data = $this->cache->get('piwik_stats_index');
+        $data = false;// $this->cache->get('piwik_stats_index');
 
         //No Data in the Cache
         if($data === false)
@@ -142,7 +142,12 @@ class listener implements EventSubscriberInterface
 				. '&format=php';
 
             //get the data from piwik
-            $data = @file_get_contents($url);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $data = curl_exec($ch);
+            curl_close($ch);
 
             //Is it a correct url?
             if($data === false)
@@ -150,7 +155,7 @@ class listener implements EventSubscriberInterface
                 return;
             }
 
-            $this->cache->put('piwik_stats_index', $data, $config_text['piwik_cache_index']);
+            //$this->cache->put('piwik_stats_index', $data, $config_text['piwik_cache_index']);
         }
 
         //unserialize the data

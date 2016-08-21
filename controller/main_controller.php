@@ -162,7 +162,13 @@ class main_controller
             . "&token_auth=". $config_text['piwik_token']
             . "&format=php&height=200&width=500&graphType=$graphType";
 
-        $data = @file_get_contents($url);
+        //get the data from piwik
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $data = curl_exec($ch);
+        curl_close($ch);
 
         //Is it a correct url?
         if($data === false)
